@@ -36,6 +36,8 @@ typedef struct USERS
     enum Role role;
 }USERS;
 
+int end(USERS *user, MEDICINES *medicine, PATIENTS *patient, DOCTORS *doctor);
+
 int main ()
 {
     int chose, UserKe = 0, DoctorKe = 0, PatientKe = 0, MedicineKe = 0;
@@ -44,7 +46,7 @@ int main ()
     char username[50];
     char password[50];
     USERS* user = (USERS*)malloc(1 * sizeof(USERS));
-    MEDICINES* mendicine = (MEDICINES*)malloc(1 * sizeof(MEDICINES));
+    MEDICINES* medicine = (MEDICINES*)malloc(1 * sizeof(MEDICINES));
     PATIENTS* patient = (PATIENTS*)malloc(1 * sizeof(PATIENTS));
     DOCTORS* doctor = (DOCTORS*)malloc(1 * sizeof(DOCTORS));
     printf("Login as: ");
@@ -71,12 +73,17 @@ int main ()
                 scanf("%d", &chose);
                 switch (chose)
                 {
-                    case 2:
+                    case 1:
                         printf("Account Type: ");
                         scanf("%s", &type);
                         (strcmp(type, "DOCTOR") == 0) ? user[UserKe].role = DOCTOR : 0;
                         (strcmp(type, "PATIENT") == 0) ? user[UserKe].role = PATIENT : 0;
-                        printf("");
+                        printf("New %s Account:\n", type);
+                        printf("Username: ");
+                        scanf("%s", &user[UserKe].Username);
+                        printf("Password: ");
+                        scanf("%s", &user[UserKe].Password);
+                        UserKe++;
                         break;
                 }
                 break;
@@ -91,9 +98,14 @@ int main ()
             printf("Test %s", username);
         }
     }
+    return end(user, medicine, patient, doctor);
+}
+
+int end(USERS *user, MEDICINES *medicine, PATIENTS *patient, DOCTORS *doctor)
+{
     free(user);
     free(patient);
     free(doctor);
-    free(mendicine);
+    free(medicine);
     return 0;
 }
