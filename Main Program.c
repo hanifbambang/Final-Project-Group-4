@@ -137,23 +137,19 @@ int main ()
                                         {
                                             case 1:
                                                 printf("New Username: ");
-                                                scanf("%s", &string);
-                                                strcpy(user[i].Username, string);
+                                                scanf("%s", &user[i].Username);
                                                 break;
                                             case 2:
                                                 printf("New Password: ");
-                                                scanf("%s", &string);
-                                                strcpy(user[i].Password, string);
+                                                scanf("%s", &user[i].Password);
                                                 break;
                                             case 3:
                                                 printf("New Name: ");
-                                                scanf("%s", &string);
-                                                strcpy(user[i].Name, string);
+                                                scanf("%s", &user[i].Name);
                                                 break;
                                             case 4:
                                                 printf("New ID: ");
-                                                scanf("%s", &string);
-                                                strcpy(user[i].ID, string);
+                                                scanf("%s", &user[i].ID);
                                                 break;
                                             default:
                                                 break;
@@ -161,8 +157,10 @@ int main ()
                                     }
                                 }
                                 printf("Username not Found!");
-                            
-                            printf("Currently not available!");
+                            }
+                            else 
+                            {
+                                printf("Currently not available!");
                             }
                     }
                     break;
@@ -172,6 +170,7 @@ int main ()
                     break;
                 }
             }
+            break;
         case DOCTOR:
             printf("Doctor");
             break;
