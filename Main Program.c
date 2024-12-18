@@ -43,7 +43,9 @@ int ModifyAccount(int *UserKe, USERS **user, DOCTORS **doctor, PATIENTS **patien
 
 void CreateAccount(int *UserKe, int *DoctorKe, int *PatientKe, USERS **user, DOCTORS **doctor, PATIENTS **patient);
 
-void AddMedicine(int *UserKe, int *MedicineKe, USERS **user, DOCTORS **doctor, PATIENTS **patient);
+void AddMedicine(int *UserKe, int *MedicineKe, USERS **user, DOCTORS **doctor, PATIENTS **patient, MEDICINES **medicine);
+
+int ModifyMedicine(int *MedicineKe, MEDICINES **medicine);
 
 int main ()
 {
@@ -89,10 +91,10 @@ int main ()
                         switch (chose)
                         {
                             case 1:
-                                AddMedicine(&UserKe, &MedicineKe, &user, &doctor, &patient);
+                                AddMedicine(&UserKe, &MedicineKe, &user, &doctor, &patient, &medicine);
                                 break;
                             case 2:
-                                lanjut = ModifyAccount(&UserKe, &user, &doctor, &patient);
+                                lanjut = ModifyMedicine(&MedicineKe, &medicine);
                         }
                         break;
                     case 2:
@@ -130,39 +132,64 @@ int main ()
     
 }
 
-void AddMedicine(int *UserKe, int *MedicineKe, USERS **user, DOCTORS **doctor, PATIENTS **patient)
+int ModifyMedicine(int *MedicineKe, MEDICINES **medicine)
+{
+    char string[50];
+    int chose;
+    if (*MedicineKe > 1)
+    {
+        printf("Name: ");
+        scanf("%s", &string);
+        for (int i = 0; i < *MedicineKe; i++)
+        {
+            if (strcmp(string, (*medicine)[i].Name) == 0)
+            {
+                printf("Change:\n");
+                printf("1. Stock\n");
+                printf("2. Price\n");
+                printf("Chose (1-2): \n");
+                scanf("%d", &chose);
+                switch (chose)
+                {
+                    case 1:
+                        printf("New Stock: ");
+                        scanf("%d", medicine[i]->stock);
+                        break;
+                    case 2:
+                        printf("New Price: ");
+                        scanf("%d", medicine[i]->price);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        printf("Medicine not Found!");
+        return 0;
+    }
+    else
+    {
+        printf("Currently not available!");
+        return 1;
+    }
+}
+
+void AddMedicine(int *UserKe, int *MedicineKe, USERS **user, DOCTORS **doctor, PATIENTS **patient, MEDICINES **medicine)
 {
     char string[50];
     printf("New Medicine:\n");
     printf("Name: ");
     scanf("%s", &string);
-    strcpy((*user)[*UserKe].Username, string);
+    strcpy((*medicine)[*UserKe].Name, string);
     printf("ID: ");
     scanf("%s", &string);
-    strcpy((*user)[*UserKe].Password, string);
+    strcpy((*medicine)[*UserKe].ID, string);
     printf("Stock: ");
-    scanf("%s", &string);
-    strcpy((*user)[*UserKe].Name, string);
-    printf("ID: ");
-    scanf("%s", &string);
-    strcpy((*user)[*UserKe].ID, string);
-    *UserKe++;
-    (*user) = (USERS *) realloc((*user), (*UserKe * sizeof(USERS)));
-    switch ((*user)[*UserKe-1].role)
-    {
-    case 1:
-        strcpy((*doctor)[*UserKe-1].DocName, (*user)[*UserKe-1].Name);
-        strcpy((*doctor)[*UserKe-1].DocID, (*user)[*UserKe-1].ID);
-        (*doctor) = (DOCTORS *) realloc((*doctor), (*UserKe * sizeof(DOCTOR)));
-        break;
-    case 2:
-        (*patient) = (PATIENTS *) realloc((*patient), (*UserKe * sizeof(PATIENTS)));
-        strcpy((*patient)[*UserKe-1].Name, (*user)[*UserKe-1].Name);
-        strcpy((*patient)[*UserKe-1].ID, (*user)[*UserKe-1].ID);
-        break;
-    default:
-        break;
-    }
+    scanf("%d", medicine[*MedicineKe]->stock);
+    printf("Price: ");
+    scanf("%d", medicine[*MedicineKe]->price);
+    *MedicineKe++;
+    (*medicine) = (MEDICINES *) realloc((*medicine), (*MedicineKe * sizeof(MEDICINES)));
     printf("New Medicine Added!");
 }
 
@@ -170,11 +197,11 @@ int ModifyAccount(int *UserKe, USERS **user, DOCTORS **doctor, PATIENTS **patien
 {
     char username[50];
     int chose;
-    if (UserKe > 1)
+    if (*UserKe > 1)
     {
         printf("Username: ");
         scanf("%s", &username);
-        for (int i = 0; i < UserKe; i++)
+        for (int i = 0; i < *UserKe; i++)
         {
             if (strcmp(username, (*user)[i].Username) == 0)
             {
