@@ -25,7 +25,7 @@ typedef struct MEDICINES
     char Name[50];
     char ID[13];
     int stock;
-} MEDICINES;
+}MEDICINES;
 
 typedef struct USERS
     {
@@ -45,10 +45,12 @@ int main ()
     char Role[13];
     char username[50];
     char password[50];
+    char string[50];
     USERS* user = (USERS*)malloc(1 * sizeof(USERS));
     MEDICINES* medicine = (MEDICINES*)malloc(1 * sizeof(MEDICINES));
     PATIENTS* patient = (PATIENTS*)malloc(1 * sizeof(PATIENTS));
     DOCTORS* doctor = (DOCTORS*)malloc(1 * sizeof(DOCTORS));
+
     printf("Login as: ");
     scanf("%s", &Role);
     if (strcmp(Role, "ADMIN") == 0)
@@ -66,7 +68,7 @@ int main ()
             scanf("%d", &chose);
             switch (chose)
             {
-            case 1:
+            case 2:
                 printf("1. Add\n");
                 printf("2. Modify\n");
                 printf("Chose (1-2): ");
@@ -80,18 +82,93 @@ int main ()
                         (strcmp(type, "PATIENT") == 0) ? user[UserKe].role = PATIENT : 0;
                         printf("New %s Account:\n", type);
                         printf("Username: ");
-                        scanf("%s", &user[UserKe].Username);
+                        scanf("%s", &string);
+                        strcpy(user[UserKe].Username, string);
                         printf("Password: ");
-                        scanf("%s", &user[UserKe].Password);
+                        scanf("%s", &string);
+                        strcpy(user[UserKe].Password, string);
+                        printf("Name: ");
+                        scanf("%s", &string);
+                        strcpy(user[UserKe].Name, string);
+                        printf("ID: ");
+                        scanf("%s", &string);
+                        strcpy(user[UserKe].ID, string);
                         UserKe++;
+                        void *realloc(void *user, size_t * UserKe);
+                        switch (user[UserKe-1].role)
+                        {
+                        case 1:
+                            strcpy(doctor[UserKe-1].DocName, user[UserKe-1].Name);
+                            strcpy(doctor[UserKe-1].DocID, user[UserKe-1].ID);
+                            void *realloc(void *doctor, size_t * UserKe);
+                            break;
+                        case 2:
+                            void *realloc(void *patient, size_t * UserKe);
+                            strcpy(patient[UserKe-1].Name, user[UserKe-1].Name);
+                            strcpy(patient[UserKe-1].ID, user[UserKe-1].ID);
+                            break;
+                        default:
+                            break;
+                        }
+                        printf("New %s Account Created!", type);
                         break;
+                    case 2:
+                        if (UserKe > 1)
+                        {
+                            printf("Username: ");
+                            scanf("%s", &username);
+                            for (int i = 0; i < UserKe; i++)
+                            {
+                                if (strcmp(username, user[i].Username) == 0)
+                                {
+                                    printf("Change:\n");
+                                    printf("1. Username\n");
+                                    printf("2. Password\n");
+                                    printf("3. Name\n");
+                                    printf("4. ID\n");
+                                    printf("Chose (1-4): \n");
+                                    scanf("%d", &chose);
+                                    switch (chose)
+                                    {
+                                        case 1:
+                                            printf("New Username: ");
+                                            scanf("%s", &string);
+                                            strcpy(user[i].Username, string);
+                                            break;
+                                        case 2:
+                                            printf("New Password: ");
+                                            scanf("%s", &string);
+                                            strcpy(user[i].Password, string);
+                                            break;
+                                        case 3:
+                                            printf("New Name: ");
+                                            scanf("%s", &string);
+                                            strcpy(user[i].Name, string);
+                                            break;
+                                        case 4:
+                                            printf("New ID: ");
+                                            scanf("%s", &string);
+                                            strcpy(user[i].ID, string);
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                }
+                            }
+                            printf("Username not Found!");
+                        }
+                        printf("Currently not available!");
                 }
                 break;
-            case 2:
+            case 1:
                 break;
             default:
                 break;
             }
+        }
+        if (strcmp(Role, DOCTOR) == 0)
+        {
+
         }
         else
         {
