@@ -18,6 +18,11 @@ typedef struct PATIENTS
     char ID[13];
     char Symptoms[50];
     char Medicine[50];
+    char HouseLocation[100];
+    char province[100];
+    char district[100];
+    char city[100];
+    float deliverFee;
 }PATIENTS;
 
 typedef struct MEDICINES
@@ -37,6 +42,32 @@ typedef struct USERS
 }USERS;
 
 int end(USERS *user, MEDICINES *medicine, PATIENTS *patient, DOCTORS *doctor);
+
+void locationDeduction(PATIENTS patient[100]){
+    if(strcmp(patient->province,"WEST-JAVA")==0)
+    {
+        if(strcmp(patient->city,"DEPOK")==0){
+            patient->deliverFee = 0.5;
+        } else if(strcmp(patient->city,"BANDUNG")==0){
+            patient->deliverFee = 0.7;
+        } else if(strcmp(patient->city,"BEKASI")==0){
+            patient->deliverFee = 0.3;
+        } else if(strcmp(patient->city,"BOGOR")==0){
+            patient->deliverFee = 0.2;
+        }
+    } else if(strcmp(patient->province,"DKI-JAKARTA")==0 || strcmp(patient->province,"JAKARTA")==0)
+    {
+        if(strcmp(patient->city,"NORTHJAKARTA")==0){
+            patient->deliverFee = 0.6;
+        } else if(strcmp(patient->city,"SOUTHJAKARTA")==0){
+            patient->deliverFee = 0.7;
+        } else if(strcmp(patient->city,"CENTRALJAKARTA")==0){
+            patient->deliverFee = 0.9;
+        } else if(strcmp(patient->city,"WESTJAKARTA")==0){
+            patient->deliverFee = 0.7;
+        }
+    }
+}
 
 int main ()
 {
@@ -197,7 +228,25 @@ int main ()
                         break;
                     
                     case 2:
+                        printf("Please Fill In The Data of where you live!\n");
+                        printf("Which Province Are From?\n ( WEST-JAVA or DKI-JAKARTA)");
+
+                        printf("Province : ");
+                        scanf("%s", patient->province);
+
+                        printf("City : ");
+                        scanf("%s", patient->city);
                         
+                        float medicineCost = 0;
+                        printf("Medicine Cost : ");
+                        scanf("%f", &medicineCost);
+                        
+                        locationDeduction(patient);
+                        float finalDelivereeCost = medicineCost * patient->deliverFee;
+
+                        printf("\n\n Original Cost : %.2f\n",medicineCost);
+                        printf("Multiplier for where you live : .2%f\n", patient->deliverFee);
+                        printf("After Tax Cost : %f",finalDelivereeCost);
                         break;
                     case 3:
 
