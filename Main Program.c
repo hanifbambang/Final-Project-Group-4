@@ -25,6 +25,7 @@ typedef struct MEDICINES
     char Name[50];
     char ID[13];
     int stock;
+    float price;
 }MEDICINES;
 
 typedef struct USERS
@@ -40,9 +41,9 @@ int end(USERS **user, MEDICINES **medicine, PATIENTS **patient, DOCTORS **doctor
 
 int ModifyAccount(int *UserKe, USERS **user, DOCTORS **doctor, PATIENTS **patient);
 
-void CreateAccount(int *UserKe, USERS **user, DOCTORS **doctor, PATIENTS **patient);
+void CreateAccount(int *UserKe, int *DoctorKe, int *PatientKe, USERS **user, DOCTORS **doctor, PATIENTS **patient);
 
-void AddMedicine(int *UserKe, USERS **user, DOCTORS **doctor, PATIENTS **patient);
+void AddMedicine(int *UserKe, int *MedicineKe, USERS **user, DOCTORS **doctor, PATIENTS **patient);
 
 int main ()
 {
@@ -88,7 +89,7 @@ int main ()
                         switch (chose)
                         {
                             case 1:
-                                AddMedicine(&UserKe, &user, &doctor, &patient);
+                                AddMedicine(&UserKe, &MedicineKe, &user, &doctor, &patient);
                                 break;
                             case 2:
                                 lanjut = ModifyAccount(&UserKe, &user, &doctor, &patient);
@@ -102,7 +103,7 @@ int main ()
                         switch (chose)
                         {
                             case 1:
-                                CreateAccount(&UserKe, &user, &doctor, &patient);
+                                CreateAccount(&UserKe, &DoctorKe, &PatientKe, &user, &doctor, &patient);
                                 break;
                             case 2:
                                 lanjut = ModifyAccount(&UserKe, &user, &doctor, &patient);
@@ -129,17 +130,17 @@ int main ()
     
 }
 
-void AddMedicine(int *UserKe, USERS **user, DOCTORS **doctor, PATIENTS **patient)
+void AddMedicine(int *UserKe, int *MedicineKe, USERS **user, DOCTORS **doctor, PATIENTS **patient)
 {
     char string[50];
     printf("New Medicine:\n");
-    printf("Username: ");
+    printf("Name: ");
     scanf("%s", &string);
     strcpy((*user)[*UserKe].Username, string);
-    printf("Password: ");
+    printf("ID: ");
     scanf("%s", &string);
     strcpy((*user)[*UserKe].Password, string);
-    printf("Name: ");
+    printf("Stock: ");
     scanf("%s", &string);
     strcpy((*user)[*UserKe].Name, string);
     printf("ID: ");
@@ -217,7 +218,7 @@ int ModifyAccount(int *UserKe, USERS **user, DOCTORS **doctor, PATIENTS **patien
     }
 }
 
-void CreateAccount(int *UserKe, int *DoctorKe, USERS **user, DOCTORS **doctor, PATIENTS **patient)
+void CreateAccount(int *UserKe, int *DoctorKe, int *PatientKe, USERS **user, DOCTORS **doctor, PATIENTS **patient)
 {
     char type[13];
     char string[50];
@@ -245,12 +246,14 @@ void CreateAccount(int *UserKe, int *DoctorKe, USERS **user, DOCTORS **doctor, P
     case 1:
         strcpy((*doctor)[*UserKe-1].DocName, (*user)[*UserKe-1].Name);
         strcpy((*doctor)[*UserKe-1].DocID, (*user)[*UserKe-1].ID);
-        (*doctor) = (DOCTORS *) realloc((*doctor), (*UserKe * sizeof(DOCTOR)));
+        *DoctorKe++;
+        (*doctor) = (DOCTORS *) realloc((*doctor), (*DoctorKe * sizeof(DOCTOR)));
         break;
     case 2:
-        (*patient) = (PATIENTS *) realloc((*patient), (*UserKe * sizeof(PATIENTS)));
         strcpy((*patient)[*UserKe-1].Name, (*user)[*UserKe-1].Name);
         strcpy((*patient)[*UserKe-1].ID, (*user)[*UserKe-1].ID);
+        *PatientKe++;
+        (*patient) = (PATIENTS *) realloc((*patient), (*PatientKe * sizeof(PATIENTS)));
         break;
     default:
         break;
