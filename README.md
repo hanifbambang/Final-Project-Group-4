@@ -2,7 +2,7 @@
 
 Hospital App is an application where doctors can assign patient symptoms and their medicine, so that the patient can checkout for the hospital. In real life hospitals, since its a huge time waster for the system to integrate from the doctor, patient and admin. Therefore, this app focuses on optimizing hospital systems to work much more efficiently. The user will have to choose to log in either as a doctor, a patient, or an admin when opening the application.  Each option will not be able to overlap, so in order to choose a different role, the user must sign out first.
 
-## Functionalities 
+## Role Functionalities 
 ### Doctor
 If the user chose to be the Doctor, then the user will be able to prescribe medicines and the system will check its availability/stock.  The user is able to give comments on the patient's health as well. 
 
