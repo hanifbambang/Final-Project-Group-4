@@ -30,6 +30,7 @@ typedef struct MEDICINES
     char Name[50];
     char ID[13];
     int stock;
+    int price;
 }MEDICINES;
 
 typedef struct USERS
@@ -77,6 +78,7 @@ int main ()
     char username[50];
     char password[50];
     char string[50];
+    char pharmacyName[100];
     Roles Roless; 
     USERS* user = (USERS*)malloc(1 * sizeof(USERS));
     MEDICINES* medicine = (MEDICINES*)malloc(1 * sizeof(MEDICINES));
@@ -249,7 +251,10 @@ int main ()
                         printf("After Tax Cost : %f",finalDelivereeCost);
                         break;
                     case 3:
-
+                        printf("Which pharmacy would you like to checkout to?\n");
+                        scanf("%s",&pharmacyName);
+                        printf("Thanks for the info : %s", pharmacyName);
+                        break;
                         break;
                     default:
                         printf("Sorry this is not an Option! try again");
