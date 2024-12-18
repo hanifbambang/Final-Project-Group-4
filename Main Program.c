@@ -99,16 +99,16 @@ int main ()
                             scanf("%s", &string);
                             strcpy(user[UserKe].ID, string);
                             UserKe++;
-                            //void *realloc(void *user, size_t * UserKe);
+                            user = (USERS *) realloc(user, (UserKe * sizeof(USERS)));
                             switch (user[UserKe-1].role)
                             {
                             case 1:
                                 strcpy(doctor[UserKe-1].DocName, user[UserKe-1].Name);
                                 strcpy(doctor[UserKe-1].DocID, user[UserKe-1].ID);
-                                //void *realloc(void *doctor, size_t * UserKe);
+                                doctor = (DOCTORS *) realloc(doctor, (UserKe * sizeof(DOCTOR)));
                                 break;
                             case 2:
-                                //void *realloc(void *patient, size_t * UserKe);
+                                patient = (PATIENTS *) realloc(patient, (UserKe * sizeof(PATIENTS)));
                                 strcpy(patient[UserKe-1].Name, user[UserKe-1].Name);
                                 strcpy(patient[UserKe-1].ID, user[UserKe-1].ID);
                                 break;
