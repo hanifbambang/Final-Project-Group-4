@@ -40,7 +40,7 @@ int end(USERS *user, MEDICINES *medicine, PATIENTS *patient, DOCTORS *doctor);
 
 int main ()
 {
-    int chose, UserKe = 0, DoctorKe = 0, PatientKe = 0, MedicineKe = 0;
+    int chose, UserKe = 0, DoctorKe = 0, PatientKe = 0, MedicineKe = 0, patientChose;
     char type[13];
     char Role[13];
     char username[50];
@@ -176,7 +176,37 @@ int main ()
                 printf("Doctor");
                 break;
             case PATIENT:
-                printf("Patient");
+                printf("Username: ");
+                scanf("%s", &username);
+                printf("Password: ");
+                scanf("%s", &password);
+                if ((strcmp(username, "admin") == 0) && (strcmp(password, "01234") == 0))
+                {
+                    printf("Successfully logged in!\nWelcome Patient %s",username);
+
+                    printf("pleace choose options:\n");
+                    printf("1. Checkout in this Hospital\n");
+                    printf("2. Deliver medicine home\n");
+                    printf("3. Checkout in Other Pharmacies\n");
+                    printf("please type down which number : ");
+                    scanf("%d", &patientChose);
+                    switch (patientChose)
+                    {
+                    case 1: 
+                        
+                        break;
+                    
+                    case 2:
+                        
+                        break;
+                    case 3:
+
+                        break;
+                    default:
+                        printf("Sorry this is not an Option! try again");
+                        break;
+                    }
+                }
                 break;
             default:
                 break;
