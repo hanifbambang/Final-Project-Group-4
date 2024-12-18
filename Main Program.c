@@ -136,11 +136,11 @@ int ModifyMedicine(int *MedicineKe, MEDICINES **medicine)
 {
     char string[50];
     int chose;
-    if (MedicineKe > 1)
+    if (*MedicineKe > 1)
     {
         printf("Name: ");
         scanf("%s", &string);
-        for (int i = 0; i < MedicineKe; i++)
+        for (int i = 0; i < *MedicineKe; i++)
         {
             if (strcmp(string, (*medicine)[i].Name) == 0)
             {
@@ -197,11 +197,11 @@ int ModifyAccount(int *UserKe, USERS **user, DOCTORS **doctor, PATIENTS **patien
 {
     char username[50];
     int chose;
-    if (UserKe > 1)
+    if (*UserKe > 1)
     {
         printf("Username: ");
         scanf("%s", &username);
-        for (int i = 0; i < UserKe; i++)
+        for (int i = 0; i < *UserKe; i++)
         {
             if (strcmp(username, (*user)[i].Username) == 0)
             {
