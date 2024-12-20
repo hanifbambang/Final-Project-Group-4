@@ -120,7 +120,21 @@ int main ()
                 printf("Doctor");
                 break;
             case 2:
-                printf("Patient");
+                printf("Username: ");
+                scanf("%s", &username);
+                printf("Password: ");
+                scanf("%s", &password);
+                if ((strcmp(username, "admin") == 0) && (strcmp(password, "1") == 0))
+                {
+                    printf("Successfully logged in!\nWelcome Patient %s",username);
+
+                    printf("list of perscribe medications");
+
+                    printf("pleace choose options:\n");
+                    printf("1. Checkout in this Hospital\n");
+                    printf("2. Deliver medicine home\n");
+                    printf("3. Checkout in Other Pharmacies\n");
+                }
                 lanjut = 1;
                 break;
             default:
